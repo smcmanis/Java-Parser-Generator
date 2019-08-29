@@ -33,7 +33,7 @@ public class LexicalAnalyser {
 		);
 
 		Map<Symbol, Integer> q2 = Map.of(
-			Symbol.DECIMAL, 6,
+			Symbol.DECIMAL, 5,
 			Symbol.WHITESPACE, 5,
 			Symbol.OPERATOR, 5, 
 			Symbol.ZERO, 3, 
@@ -59,6 +59,7 @@ public class LexicalAnalyser {
 			Symbol.NONE, 6
 		);
 
+		// Don't really need these last 2 maps, since immediately throw exception
 		Map<Symbol, Integer> q5 = Map.of(
 			Symbol.DECIMAL, 5,
 			Symbol.WHITESPACE, 5,
@@ -88,20 +89,6 @@ public class LexicalAnalyser {
 			6, q6
 		);
 	}
-
-    public static void main(String[] args) {
-
-
-		List<Token> result = new ArrayList<Token>();
-		try {
-			result = LexicalAnalyser.analyse(getInput());
-			System.out.print(resultToString(result));
-		} catch (IOException e) {
-			System.out.println("General I/O exception: " + e.getMessage());
-		} catch (NumberException | ExpressionException e) {
-			System.err.println("Error: " + e.getMessage());
-		}
-	}
 	
 
 	public static List<Token> analyse(String input) throws NumberException, ExpressionException {
@@ -116,29 +103,22 @@ public class LexicalAnalyser {
 			state = transitionTable.get(state).get(typeOf(letter));
 
 			switch(state) {
-				case 2:
-					if (i == input.length() - 1) 
-						throw new NumberException();
 				case 1:
+				case 2:
 				case 3:
 					number += letter;
 					// if at end of expression comtinue to case 0 to create token for number
-					if (i != input.length() - 1) 
-						break;
+					if (i != input.length() - 1) break;
 				case 0: 
-
-					// length > 0 and no decimal indicates an int, otherwise a double
+					// length > 0 indicates a number, decimal indicates it's a double
 					if (number.length() > 0 && number.indexOf('.') == -1) 
 						tokens.add(new Token(Integer.parseInt(number)));
-					else if (number.length() > 2) 
+					else if (number.length() > 2) // valid double has at least 3 characters
 						tokens.add(new Token(Double.parseDouble(number)));
-					// invalid expression if the expression ends with an operator followed by whitespaces
-					// if (number.length() == 0 && i == input.length()-1)
-					// 	throw new ExpressionException();
+					number = "";
+
 					if (typeOf(letter) == Symbol.OPERATOR)
 						tokens.add(new Token(Token.typeOf(letter)));
-					// Any number has been added, so the string container need to be reset
-					number = "";
 					break;
 				case 4:
 					break;
@@ -148,26 +128,17 @@ public class LexicalAnalyser {
 					throw new ExpressionException();
 				
 			}
-
 		}
 
 		// IS THIS AN FA APPROACH? Maybe add an extra state 
-		// It is checking that the last charac isn't an operator
-		if (state != 3 && state !=1)
-			throw new ExpressionException();
+		if (state == 2) throw new NumberException();
+		if (state != 3 && state != 1) throw new ExpressionException();
 
 		return tokens;
 
 	}
 
-	public static String getInput() throws IOException {
 
-		try (Scanner scanner = new Scanner(System.in)) {
-			System.out.print("Enter mathematical expression: ");
-			return scanner.nextLine();
-		}
-
-	}
 
 	public static Symbol typeOf(char symbol) {
 		switch (symbol) {
@@ -195,6 +166,29 @@ public class LexicalAnalyser {
 		default:
 			return Symbol.NONE;
 		}
+	}
+
+	public static void main(String[] args) {
+
+
+		List<Token> result = new ArrayList<Token>();
+		try {
+			result = LexicalAnalyser.analyse(getInput());
+			System.out.print(resultToString(result));
+		} catch (IOException e) {
+			System.out.println("General I/O exception: " + e.getMessage());
+		} catch (NumberException | ExpressionException e) {
+			System.err.println("Error: " + e.getMessage());
+		}
+	}
+
+	public static String getInput() throws IOException {
+
+		try (Scanner scanner = new Scanner(System.in)) {
+			System.out.print("Enter mathematical expression: ");
+			return scanner.nextLine();
+		}
+
 	}
 
 	public static String resultToString(List<Token> result) {
