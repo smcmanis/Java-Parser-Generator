@@ -1,9 +1,6 @@
 import java.util.*;
 import java.io.IOException;
 
-
-// import javax.management.ImmutableDescriptor;
-
 public class LexicalAnalyser {
 
 	private enum Symbol {
@@ -95,7 +92,7 @@ public class LexicalAnalyser {
 
 		List<Token> tokens = new ArrayList<Token>();
 		int state = 0;
-		String number = ""; 	// To store number substring (primarily for identifying doubles)
+		String number = ""; 	// To store number substring
 
 		for (int i = 0; i < input.length(); ++i) {
 
@@ -130,9 +127,8 @@ public class LexicalAnalyser {
 			}
 		}
 
-		// IS THIS AN FA APPROACH? Maybe add an extra state 
 		if (state == 2) throw new NumberException();
-		if (state != 3 && state != 1) throw new ExpressionException();
+		if (state != 3 && state != 1 && state != 4) throw new ExpressionException();
 
 		return tokens;
 
