@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="15" failures="0" name="LexicalAnalyserTest" time="0.05" errors="0" skipped="0">
+<testsuite tests="15" failures="0" name="LexicalAnalyserTest" time="0.049" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="12.0.2+10"/>
@@ -57,18 +57,18 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.endian" value="little"/>
   </properties>
-  <testcase classname="LexicalAnalyserTest" name="testSimplePlus" time="0.025"/>
-  <testcase classname="LexicalAnalyserTest" name="testSimpleMinus" time="0"/>
-  <testcase classname="LexicalAnalyserTest" name="testSimpleTimes" time="0"/>
-  <testcase classname="LexicalAnalyserTest" name="testAnalyseMultiDigitInteger" time="0.001"/>
-  <testcase classname="LexicalAnalyserTest" name="testSmallDecimal" time="0.002"/>
+  <testcase classname="LexicalAnalyserTest" name="testSimplePlus" time="0.024"/>
+  <testcase classname="LexicalAnalyserTest" name="testSimpleMinus" time="0.001"/>
+  <testcase classname="LexicalAnalyserTest" name="testSimpleTimes" time="0.001"/>
+  <testcase classname="LexicalAnalyserTest" name="testAnalyseMultiDigitInteger" time="0"/>
+  <testcase classname="LexicalAnalyserTest" name="testSmallDecimal" time="0.001"/>
   <testcase classname="LexicalAnalyserTest" name="testSimpleDivide" time="0.001"/>
-  <testcase classname="LexicalAnalyserTest" name="testDecimalNoDecimalPart" time="0.003"/>
+  <testcase classname="LexicalAnalyserTest" name="testDecimalNoDecimalPart" time="0.004"/>
   <testcase classname="LexicalAnalyserTest" name="testLongDecimal" time="0"/>
-  <testcase classname="LexicalAnalyserTest" name="testSimpleWrongExpression" time="0"/>
+  <testcase classname="LexicalAnalyserTest" name="testSimpleWrongExpression" time="0.001"/>
   <testcase classname="LexicalAnalyserTest" name="testDecimalNonZeroIntegerPart" time="0"/>
-  <testcase classname="LexicalAnalyserTest" name="testDecimalNoIntegerPart" time="0.004"/>
-  <testcase classname="LexicalAnalyserTest" name="testRandomValidExpression" time="0.01"/>
+  <testcase classname="LexicalAnalyserTest" name="testDecimalNoIntegerPart" time="0"/>
+  <testcase classname="LexicalAnalyserTest" name="testRandomValidExpression" time="0.012"/>
   <testcase classname="LexicalAnalyserTest" name="testUnexpectedSymbol" time="0"/>
   <testcase classname="LexicalAnalyserTest" name="testRandomWrongExpression" time="0.004"/>
   <testcase classname="LexicalAnalyserTest" name="testAnalyseSimpleNumber" time="0"/>

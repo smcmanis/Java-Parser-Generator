@@ -11,6 +11,7 @@ public class LexicalAnalyser {
 
 	private static Map<Integer, Map<Symbol, Integer>> transitionTable; 			//for transition function
 	static {
+		// Any letter not in the alphabet gets the symbol NONE - causing an expression exception
 		Map<Symbol, Integer> q0 = Map.of(
 			Symbol.DECIMAL, 5,
 			Symbol.WHITESPACE, 0,
@@ -57,13 +58,14 @@ public class LexicalAnalyser {
 		);
 
 		// Don't really need these last 2 maps, since immediately throw exception
+		// But good to keep for conceptual reasons (represents the DFA sink states)
 		Map<Symbol, Integer> q5 = Map.of(
 			Symbol.DECIMAL, 5,
 			Symbol.WHITESPACE, 5,
 			Symbol.OPERATOR, 5, 
 			Symbol.ZERO, 5, 
 			Symbol.NONZERO, 5,
-			Symbol.NONE, 5
+			Symbol.NONE, 5 // debatable if it should be 6. An expression containing a letter not in aplhabet is invalid
 		);
 
 		Map<Symbol, Integer> q6 = Map.of(
@@ -100,35 +102,30 @@ public class LexicalAnalyser {
 			state = transitionTable.get(state).get(typeOf(letter));
 
 			switch(state) {
-				case 1:
-				case 2:
-				case 3:
-					number += letter;
-					// if at end of expression comtinue to case 0 to create token for number
-					if (i != input.length() - 1) break;
-				case 0: 
-					// length > 0 indicates a number, decimal indicates it's a double
-					if (number.length() > 0 && number.indexOf('.') == -1) 
-						tokens.add(new Token(Integer.parseInt(number)));
-					else if (number.length() > 2) // valid double has at least 3 characters
-						tokens.add(new Token(Double.parseDouble(number)));
-					number = "";
-
-					if (typeOf(letter) == Symbol.OPERATOR)
-						tokens.add(new Token(Token.typeOf(letter)));
-					break;
-				case 4:
-					break;
-				case 5:
-					throw new NumberException();
-				case 6:
-					throw new ExpressionException();
+			case 1:
+			case 2:
+			case 3:
+				number += letter;
+				// if at end of expression comtinue to case 0 to create token for number
+				if (i != input.length() - 1) break;
+			case 0: 
+				// length > 0 indicates a number, decimal indicates it's a double
+				if (number.length() > 0 && number.indexOf('.') == -1) 
+					tokens.add(new Token(Integer.parseInt(number)));
+				else if (number.length() > 2) // valid double has at least 3 characters
+					tokens.add(new Token(Double.parseDouble(number)));
+				number = "";
+				if (typeOf(letter) == Symbol.OPERATOR)
+					tokens.add(new Token(Token.typeOf(letter)));
+				break;
+			default: // Do nothing for states 4, 5, and 6, or unexpected input. The states will take care of themselves
+				break;
 				
 			}
 		}
 
-		if (state == 2) throw new NumberException();
-		if (state != 3 && state != 1 && state != 4) throw new ExpressionException();
+		if (state == 2 | state == 5) throw new NumberException();	// "0." is an invalid number
+		if (state == 6) throw new ExpressionException();
 
 		return tokens;
 
