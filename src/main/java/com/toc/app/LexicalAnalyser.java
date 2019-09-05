@@ -9,83 +9,83 @@ public class LexicalAnalyser {
 
 	} 
 
-	private static Map<Integer, Map<Symbol, Integer>> transitionTable; 			//for transition function
+	private static Map<Character, Map<Symbol, Character>> transitionTable; 			//for transition function
 	static {
 		// Any letter not in the alphabet gets the symbol NONE - causing an expression exception
-		Map<Symbol, Integer> q0 = Map.of(
-			Symbol.DECIMAL, 5,
-			Symbol.WHITESPACE, 0,
-			Symbol.OPERATOR, 6, 
-			Symbol.ZERO, 1, 
-			Symbol.NONZERO, 3,
-			Symbol.NONE, 6
+		Map<Symbol, Character> q_a = Map.of(
+			Symbol.DECIMAL, 'f',
+			Symbol.WHITESPACE, 'a',
+			Symbol.OPERATOR, 'g', 
+			Symbol.ZERO, 'b', 
+			Symbol.NONZERO, 'c',
+			Symbol.NONE, 'g'
 		);
 
-		Map<Symbol, Integer> q1 = Map.of(
-			Symbol.DECIMAL, 2,
-			Symbol.WHITESPACE, 4,
-			Symbol.OPERATOR, 0, 
-			Symbol.ZERO, 5, 
-			Symbol.NONZERO, 5,
-			Symbol.NONE, 6
+		Map<Symbol, Character> q_b = Map.of(
+			Symbol.DECIMAL, 'd',
+			Symbol.WHITESPACE, 'e',
+			Symbol.OPERATOR, 'a', 
+			Symbol.ZERO, 'f', 
+			Symbol.NONZERO, 'f',
+			Symbol.NONE, 'g'
 		);
 
-		Map<Symbol, Integer> q2 = Map.of(
-			Symbol.DECIMAL, 5,
-			Symbol.WHITESPACE, 5,
-			Symbol.OPERATOR, 5, 
-			Symbol.ZERO, 3, 
-			Symbol.NONZERO, 3,
-			Symbol.NONE, 6
+		Map<Symbol, Character> q_d = Map.of(
+			Symbol.DECIMAL, 'f',
+			Symbol.WHITESPACE, 'f',
+			Symbol.OPERATOR, 'f', 
+			Symbol.ZERO, 'c', 
+			Symbol.NONZERO, 'c',
+			Symbol.NONE, 'g'
 		);
 
-		Map<Symbol, Integer> q3 = Map.of(
-			Symbol.DECIMAL, 5,
-			Symbol.WHITESPACE, 4,
-			Symbol.OPERATOR, 0, 
-			Symbol.ZERO, 3, 
-			Symbol.NONZERO, 3,
-			Symbol.NONE, 6
+		Map<Symbol, Character> q_c = Map.of(
+			Symbol.DECIMAL, 'f',
+			Symbol.WHITESPACE, 'e',
+			Symbol.OPERATOR, 'a', 
+			Symbol.ZERO, 'c', 
+			Symbol.NONZERO, 'c',
+			Symbol.NONE, 'g'
 		);
 
-		Map<Symbol, Integer> q4 = Map.of(
-			Symbol.DECIMAL, 5,
-			Symbol.WHITESPACE, 4,
-			Symbol.OPERATOR, 0, 
-			Symbol.ZERO, 6, 
-			Symbol.NONZERO, 6,
-			Symbol.NONE, 6
+		Map<Symbol, Character> q_e = Map.of(
+			Symbol.DECIMAL, 'f',
+			Symbol.WHITESPACE, 'e',
+			Symbol.OPERATOR, 'a', 
+			Symbol.ZERO, 'g', 
+			Symbol.NONZERO, 'g',
+			Symbol.NONE, 'g'
 		);
 
 		// Don't really need these last 2 maps, since immediately throw exception
 		// But good to keep for conceptual reasons (represents the DFA sink states)
-		Map<Symbol, Integer> q5 = Map.of(
-			Symbol.DECIMAL, 5,
-			Symbol.WHITESPACE, 5,
-			Symbol.OPERATOR, 5, 
-			Symbol.ZERO, 5, 
-			Symbol.NONZERO, 5,
-			Symbol.NONE, 5 // debatable if it should be 6. An expression containing a letter not in aplhabet is invalid
+		Map<Symbol, Character> q_f = Map.of(
+			Symbol.DECIMAL, 'f',
+			Symbol.WHITESPACE, 'f',
+			Symbol.OPERATOR, 'f', 
+			Symbol.ZERO, 'f', 
+			Symbol.NONZERO, 'f',
+			Symbol.NONE, 'f' // debatable if it should be 6. An expression containing a letter not in aplhabet is invalid
 		);
 
-		Map<Symbol, Integer> q6 = Map.of(
-			Symbol.DECIMAL, 6,
-			Symbol.WHITESPACE, 6,
-			Symbol.OPERATOR, 6, 
-			Symbol.ZERO, 6, 
-			Symbol.NONZERO, 6,
-			Symbol.NONE, 6
+		Map<Symbol, Character> q_g = Map.of(
+			Symbol.DECIMAL, 'g',
+			Symbol.WHITESPACE, 'g',
+			Symbol.OPERATOR, 'g', 
+			Symbol.ZERO, 'g', 
+			Symbol.NONZERO, 'g',
+			Symbol.NONE, 'g'
 		);
 
 
 		transitionTable = Map.of(
-			0, q0,
-			1, q1,
-			2, q2,
-			3, q3,
-			4, q4,
-			5, q5,
-			6, q6
+			'a', q_a,
+			'b', q_b,
+			'd', q_d,
+			'c', q_c,
+			'e', q_e,
+			'f', q_f,
+			'g', q_g
 		);
 	}
 	
@@ -93,7 +93,7 @@ public class LexicalAnalyser {
 	public static List<Token> analyse(String input) throws NumberException, ExpressionException {
 
 		List<Token> tokens = new ArrayList<Token>();
-		int state = 0;
+		char state = 'a';
 		String number = ""; 	// To store number substring
 
 		for (int i = 0; i < input.length(); ++i) {
@@ -102,30 +102,29 @@ public class LexicalAnalyser {
 			state = transitionTable.get(state).get(typeOf(letter));
 
 			switch(state) {
-			case 1:
-			case 2:
-			case 3:
+			case 'b':
+			case 'd':
+			case 'c':
 				number += letter;
-				// if at end of expression comtinue to case 0 to create token for number
-				if (i != input.length() - 1) break;
-			case 0: 
-				// length > 0 indicates a number, decimal indicates it's a double
-				if (number.length() > 0 && number.indexOf('.') == -1) 
-					tokens.add(new Token(Integer.parseInt(number)));
-				else if (number.length() > 2) // valid double has at least 3 characters
-					tokens.add(new Token(Double.parseDouble(number)));
-				number = "";
-				if (typeOf(letter) == Symbol.OPERATOR)
-					tokens.add(new Token(Token.typeOf(letter)));
 				break;
-			default: // Do nothing for states 4, 5, and 6, or unexpected input. The states will take care of themselves
+				// if at end of expression comtinue to case 0 to create token for number
+				// if (number.length() > 0) tokens.add(new Token(Double.parseDouble(number)));
+			case 'a': 
+				// length > 0 indicates a number, decimal indicates it's a double
+				if (number.length() > 0) tokens.add(new Token(Double.parseDouble(number)));
+				number = "";
+				if (typeOf(letter) == Symbol.OPERATOR) tokens.add(new Token(Token.typeOf(letter)));
+				break;
+			default: // Do nothing for states e, f, and g, or unexpected input. The states will take care of themselves
 				break;
 				
 			}
 		}
 
-		if (state == 2 | state == 5) throw new NumberException();	// "0." is an invalid number
-		if (state == 6) throw new ExpressionException();
+		if (number.length() > 0) tokens.add(new Token(Double.parseDouble(number)));
+
+		if (state == 'd' | state == 'f') throw new NumberException();	// "0." is an invalid number
+		if (state == 'g') throw new ExpressionException();
 
 		return tokens;
 
