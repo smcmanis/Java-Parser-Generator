@@ -131,8 +131,8 @@ public class Translator {
         switch (gt.getType()) {
             case ID:
             case NUM:
-            // case CHARLIT:
-            // case STRINGLIT:
+            case CHARLIT:
+            case STRINGLIT:
             case TYPE:
                 return ParseTree.Label.terminal;
             default:

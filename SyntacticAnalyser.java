@@ -31,7 +31,7 @@ public class SyntacticAnalyser {
         while (!stack.empty()) {
 
             GrammarToken currentToken = translated.isEmpty() ? epsilon : translated.peek();
-            // System.out.println(top + " " + currentToken);
+            System.out.println(top + " " + currentToken);
 
             // System.out.println(currentToken + " + " +  top);
             // for parse tree, use the getToken method on currentToken if hasToken()
@@ -75,8 +75,9 @@ public class SyntacticAnalyser {
         //      ID, TYPE, ANY SYMBOL, CHARLIT, STRINGLIT, NUM 
         ///     ANything represented by a token is a fucking terminal
 
-        List<ParseTree<Token>.TreeNode> children = parseTree.getRoot().getChildren();
-        System.out.println(children.get(13).getChildren().get(0).getChildren().get(0).getChildren().get(2).getChildren().get(1).getChildren().get(0).getChildren().get(0).getLabel());
+        System.out.println(parseTree);
+        // List<ParseTree<Token>.TreeNode> children = parseTree.getRoot().getChildren();
+        // System.out.println(children.get(13).getChildren().get(0).getChildren().get(0).getChildren().get(2).getChildren().get(1).getChildren().get(0).getChildren().get(0).getLabel());
 
 
 		return parseTree;
