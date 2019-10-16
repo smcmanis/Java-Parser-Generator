@@ -1,0 +1,30 @@
+<<prog>> ::= public class <<ID>> { public static void main ( String[] args ) { <<los>> } }
+<<los>> ::= <<stat>> <<los>> | <<epsilon>>
+<<stat>> ::= <<while>> | <<for>> | <<if>> | <<assign>> ; | <<decl>> ; | <<print>> ; | ;
+<<while>> ::= while ( <<rel expr>> <<bool expr'>> ) { <<los>> }
+<<for>> ::= for ( <<for start>> ; <<rel expr>> <<bool expr'>> ; <<for arith>> ) { <<los>> }
+<<for start>> ::= <<decl>> | <<assign>> | <<epsilon>>
+<<for arith>> ::= <<arith expr>> | <<epsilon>>
+<<if>> ::= if ( <<rel expr>> <<bool expr'>> ) { <<los>> } <<else if>>
+<<else if>> ::= <<else?if>> { <<los>> } <<else if>> | <<epsilon>>
+<<else?if>> ::= else <<poss if>>
+<<poss if>> ::= if ( <<rel expr>> <<bool expr'>> ) | <<epsilon>>
+<<assign>> ::= <<ID>> = <<expr>>
+<<decl>> ::= <<type>> <<ID>> <<poss assign>>
+<<poss assign>> ::= = <<expr>> | <<epsilon>>
+<<print>> ::= System.out.print( <<print expr>> )
+<<type>> ::= int | boolean | char
+<<expr>> ::= <<rel expr>> <<bool expr'>> | <<char expr>>
+<<bool expr'>> ::= <<bool op>> <<rel expr>> <<bool expr'>> | <<epsilon>>
+<<bool op>> ::= <<bool eq>> | <<bool log>>
+<<bool eq>> ::= == | !=
+<<bool log>> ::= && | ||
+<<rel expr>> ::= <<arith expr>> <<rel expr'>> | true | false
+<<rel expr'>> ::= <<rel op>> <<arith expr>> | <<epsilon>>
+<<rel op>> ::= < | <= | > | >=
+<<arith expr>> ::= <<term>> <<arith expr'>>
+<<arith expr'>> ::= + <<term>> <<arith expr'>> | - <<term>> <<arith expr'>> | <<epsilon>>
+<<term>> ::= <<factor>> <<term'>>
+<<term'>> ::= * <<factor>> <<term'>> | / <<factor>> <<term'>> | % <<factor>> <<term'>> | <<epsilon>>
+<<factor>> ::= ( <<arith expr>> ) | <<ID>> | <<num>>
+<<print expr>> ::= <<rel expr>> <<bool expr'>> | <<string lit>>

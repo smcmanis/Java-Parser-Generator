@@ -1,0 +1,708 @@
+-----------
+[PROG_VAR] + [PUBLIC] --> 0
+[PROG_VAR] --> [PUBLIC] [CLASS] [ID] [LBRACE] [PUBLIC] [STATIC] [VOID] [MAIN] [LPAREN] [STRINGARR] [ARGS] [RPAREN] [LBRACE] [LOS_VAR] [RBRACE] [RBRACE] 
+-----------
+-----------
+[LOS_VAR] + [IF] --> 1
+[LOS_VAR] --> [STAT_VAR] [LOS_VAR] 
+-----------
+-----------
+[LOS_VAR] + [TYPE: Optional[int]] --> 1
+[LOS_VAR] --> [STAT_VAR] [LOS_VAR] 
+-----------
+-----------
+[LOS_VAR] + [TYPE: Optional[boolean]] --> 1
+[LOS_VAR] --> [STAT_VAR] [LOS_VAR] 
+-----------
+-----------
+[LOS_VAR] + [TYPE: Optional[char]] --> 1
+[LOS_VAR] --> [STAT_VAR] [LOS_VAR] 
+-----------
+-----------
+[LOS_VAR] + [PRINT] --> 1
+[LOS_VAR] --> [STAT_VAR] [LOS_VAR] 
+-----------
+-----------
+[LOS_VAR] + [SEMICOLON] --> 1
+[LOS_VAR] --> [STAT_VAR] [LOS_VAR] 
+-----------
+-----------
+[LOS_VAR] + [FOR] --> 1
+[LOS_VAR] --> [STAT_VAR] [LOS_VAR] 
+-----------
+-----------
+[LOS_VAR] + [WHILE] --> 1
+[LOS_VAR] --> [STAT_VAR] [LOS_VAR] 
+-----------
+-----------
+[LOS_VAR] + [ID] --> 1
+[LOS_VAR] --> [STAT_VAR] [LOS_VAR] 
+-----------
+-----------
+[LOS_VAR] + [RBRACE] --> 2
+[LOS_VAR] --> [EPSILON] 
+-----------
+-----------
+[LOS_VAR] + [EPSILON] --> 2
+[LOS_VAR] --> [EPSILON] 
+-----------
+-----------
+[STAT_VAR] + [WHILE] --> 3
+[STAT_VAR] --> [WHILE_VAR] 
+-----------
+-----------
+[STAT_VAR] + [FOR] --> 4
+[STAT_VAR] --> [FOR_VAR] 
+-----------
+-----------
+[STAT_VAR] + [IF] --> 5
+[STAT_VAR] --> [IF_VAR] 
+-----------
+-----------
+[STAT_VAR] + [ID] --> 6
+[STAT_VAR] --> [ASSIGN_VAR] [SEMICOLON] 
+-----------
+-----------
+[STAT_VAR] + [TYPE: Optional[int]] --> 7
+[STAT_VAR] --> [DECL_VAR] [SEMICOLON] 
+-----------
+-----------
+[STAT_VAR] + [TYPE: Optional[boolean]] --> 7
+[STAT_VAR] --> [DECL_VAR] [SEMICOLON] 
+-----------
+-----------
+[STAT_VAR] + [TYPE: Optional[char]] --> 7
+[STAT_VAR] --> [DECL_VAR] [SEMICOLON] 
+-----------
+-----------
+[STAT_VAR] + [PRINT] --> 8
+[STAT_VAR] --> [PRINT_VAR] [SEMICOLON] 
+-----------
+-----------
+[STAT_VAR] + [SEMICOLON] --> 9
+[STAT_VAR] --> [SEMICOLON] 
+-----------
+-----------
+[WHILE_VAR] + [WHILE] --> 10
+[WHILE_VAR] --> [WHILE] [LPAREN] [RELEXPR_VAR] [BOOLEXPRP_VAR] [RPAREN] [LBRACE] [LOS_VAR] [RBRACE] 
+-----------
+-----------
+[FOR_VAR] + [FOR] --> 11
+[FOR_VAR] --> [FOR] [LPAREN] [FORSTART_VAR] [SEMICOLON] [RELEXPR_VAR] [BOOLEXPRP_VAR] [SEMICOLON] [FORARITH_VAR] [RPAREN] [LBRACE] [LOS_VAR] [RBRACE] 
+-----------
+-----------
+[FORSTART_VAR] + [TYPE: Optional[int]] --> 12
+[FORSTART_VAR] --> [DECL_VAR] 
+-----------
+-----------
+[FORSTART_VAR] + [TYPE: Optional[boolean]] --> 12
+[FORSTART_VAR] --> [DECL_VAR] 
+-----------
+-----------
+[FORSTART_VAR] + [TYPE: Optional[char]] --> 12
+[FORSTART_VAR] --> [DECL_VAR] 
+-----------
+-----------
+[FORSTART_VAR] + [ID] --> 13
+[FORSTART_VAR] --> [ASSIGN_VAR] 
+-----------
+-----------
+[FORSTART_VAR] + [SEMICOLON] --> 14
+[FORSTART_VAR] --> [EPSILON] 
+-----------
+-----------
+[FORSTART_VAR] + [EPSILON] --> 14
+[FORSTART_VAR] --> [EPSILON] 
+-----------
+-----------
+[FORARITH_VAR] + [LPAREN] --> 15
+[FORARITH_VAR] --> [ARITHEXPR_VAR] 
+-----------
+-----------
+[FORARITH_VAR] + [ID] --> 15
+[FORARITH_VAR] --> [ARITHEXPR_VAR] 
+-----------
+-----------
+[FORARITH_VAR] + [NUM] --> 15
+[FORARITH_VAR] --> [ARITHEXPR_VAR] 
+-----------
+-----------
+[FORARITH_VAR] + [RPAREN] --> 16
+[FORARITH_VAR] --> [EPSILON] 
+-----------
+-----------
+[FORARITH_VAR] + [EPSILON] --> 16
+[FORARITH_VAR] --> [EPSILON] 
+-----------
+-----------
+[IF_VAR] + [IF] --> 17
+[IF_VAR] --> [IF] [LPAREN] [RELEXPR_VAR] [BOOLEXPRP_VAR] [RPAREN] [LBRACE] [LOS_VAR] [RBRACE] [ELSEIF_VAR] 
+-----------
+-----------
+[ELSEIF_VAR] + [ELSE] --> 18
+[ELSEIF_VAR] --> [ELSEQIF_VAR] [LBRACE] [LOS_VAR] [RBRACE] [ELSEIF_VAR] 
+-----------
+-----------
+[ELSEIF_VAR] + [IF] --> 19
+[ELSEIF_VAR] --> [EPSILON] 
+-----------
+-----------
+[ELSEIF_VAR] + [TYPE: Optional[int]] --> 19
+[ELSEIF_VAR] --> [EPSILON] 
+-----------
+-----------
+[ELSEIF_VAR] + [TYPE: Optional[boolean]] --> 19
+[ELSEIF_VAR] --> [EPSILON] 
+-----------
+-----------
+[ELSEIF_VAR] + [TYPE: Optional[char]] --> 19
+[ELSEIF_VAR] --> [EPSILON] 
+-----------
+-----------
+[ELSEIF_VAR] + [PRINT] --> 19
+[ELSEIF_VAR] --> [EPSILON] 
+-----------
+-----------
+[ELSEIF_VAR] + [RBRACE] --> 19
+[ELSEIF_VAR] --> [EPSILON] 
+-----------
+-----------
+[ELSEIF_VAR] + [SEMICOLON] --> 19
+[ELSEIF_VAR] --> [EPSILON] 
+-----------
+-----------
+[ELSEIF_VAR] + [FOR] --> 19
+[ELSEIF_VAR] --> [EPSILON] 
+-----------
+-----------
+[ELSEIF_VAR] + [WHILE] --> 19
+[ELSEIF_VAR] --> [EPSILON] 
+-----------
+-----------
+[ELSEIF_VAR] + [ID] --> 19
+[ELSEIF_VAR] --> [EPSILON] 
+-----------
+-----------
+[ELSEIF_VAR] + [EPSILON] --> 19
+[ELSEIF_VAR] --> [EPSILON] 
+-----------
+-----------
+[ELSEQIF_VAR] + [ELSE] --> 20
+[ELSEQIF_VAR] --> [ELSE] [POSSIF_VAR] 
+-----------
+-----------
+[POSSIF_VAR] + [IF] --> 21
+[POSSIF_VAR] --> [IF] [LPAREN] [RELEXPR_VAR] [BOOLEXPRP_VAR] [RPAREN] 
+-----------
+-----------
+[POSSIF_VAR] + [LBRACE] --> 22
+[POSSIF_VAR] --> [EPSILON] 
+-----------
+-----------
+[POSSIF_VAR] + [EPSILON] --> 22
+[POSSIF_VAR] --> [EPSILON] 
+-----------
+-----------
+[ASSIGN_VAR] + [ID] --> 23
+[ASSIGN_VAR] --> [ID] [ASSIGN] [EXPR_VAR] 
+-----------
+-----------
+[DECL_VAR] + [TYPE: Optional[int]] --> 24
+[DECL_VAR] --> [TYPE_VAR] [ID] [POSSASSIGN_VAR] 
+-----------
+-----------
+[DECL_VAR] + [TYPE: Optional[boolean]] --> 24
+[DECL_VAR] --> [TYPE_VAR] [ID] [POSSASSIGN_VAR] 
+-----------
+-----------
+[DECL_VAR] + [TYPE: Optional[char]] --> 24
+[DECL_VAR] --> [TYPE_VAR] [ID] [POSSASSIGN_VAR] 
+-----------
+-----------
+[POSSASSIGN_VAR] + [ASSIGN] --> 25
+[POSSASSIGN_VAR] --> [ASSIGN] [EXPR_VAR] 
+-----------
+-----------
+[POSSASSIGN_VAR] + [SEMICOLON] --> 26
+[POSSASSIGN_VAR] --> [EPSILON] 
+-----------
+-----------
+[POSSASSIGN_VAR] + [EPSILON] --> 26
+[POSSASSIGN_VAR] --> [EPSILON] 
+-----------
+-----------
+[PRINT_VAR] + [PRINT] --> 27
+[PRINT_VAR] --> [PRINT] [LPAREN] [PRINTEXPR_VAR] [RPAREN] 
+-----------
+-----------
+[TYPE_VAR] + [TYPE: Optional[int]] --> 28
+[TYPE_VAR] --> [TYPE: Optional[int]] 
+-----------
+-----------
+[TYPE_VAR] + [TYPE: Optional[boolean]] --> 29
+[TYPE_VAR] --> [TYPE: Optional[boolean]] 
+-----------
+-----------
+[TYPE_VAR] + [TYPE: Optional[char]] --> 30
+[TYPE_VAR] --> [TYPE: Optional[char]] 
+-----------
+-----------
+[EXPR_VAR] + [FALSE] --> 31
+[EXPR_VAR] --> [RELEXPR_VAR] [BOOLEXPRP_VAR] 
+-----------
+-----------
+[EXPR_VAR] + [TRUE] --> 31
+[EXPR_VAR] --> [RELEXPR_VAR] [BOOLEXPRP_VAR] 
+-----------
+-----------
+[EXPR_VAR] + [LPAREN] --> 31
+[EXPR_VAR] --> [RELEXPR_VAR] [BOOLEXPRP_VAR] 
+-----------
+-----------
+[EXPR_VAR] + [ID] --> 31
+[EXPR_VAR] --> [RELEXPR_VAR] [BOOLEXPRP_VAR] 
+-----------
+-----------
+[EXPR_VAR] + [NUM] --> 31
+[EXPR_VAR] --> [RELEXPR_VAR] [BOOLEXPRP_VAR] 
+-----------
+-----------
+[EXPR_VAR] + [CHARLIT] --> 32
+[EXPR_VAR] --> [CHARLIT] 
+-----------
+-----------
+[BOOLEXPRP_VAR] + [NEQUAL] --> 33
+[BOOLEXPRP_VAR] --> [BOOLOP_VAR] [RELEXPR_VAR] [BOOLEXPRP_VAR] 
+-----------
+-----------
+[BOOLEXPRP_VAR] + [OR] --> 33
+[BOOLEXPRP_VAR] --> [BOOLOP_VAR] [RELEXPR_VAR] [BOOLEXPRP_VAR] 
+-----------
+-----------
+[BOOLEXPRP_VAR] + [EQUAL] --> 33
+[BOOLEXPRP_VAR] --> [BOOLOP_VAR] [RELEXPR_VAR] [BOOLEXPRP_VAR] 
+-----------
+-----------
+[BOOLEXPRP_VAR] + [AND] --> 33
+[BOOLEXPRP_VAR] --> [BOOLOP_VAR] [RELEXPR_VAR] [BOOLEXPRP_VAR] 
+-----------
+-----------
+[BOOLEXPRP_VAR] + [RPAREN] --> 34
+[BOOLEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[BOOLEXPRP_VAR] + [SEMICOLON] --> 34
+[BOOLEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[BOOLEXPRP_VAR] + [EPSILON] --> 34
+[BOOLEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[BOOLOP_VAR] + [NEQUAL] --> 35
+[BOOLOP_VAR] --> [BOOLEQ_VAR] 
+-----------
+-----------
+[BOOLOP_VAR] + [EQUAL] --> 35
+[BOOLOP_VAR] --> [BOOLEQ_VAR] 
+-----------
+-----------
+[BOOLOP_VAR] + [OR] --> 36
+[BOOLOP_VAR] --> [BOOLLOG_VAR] 
+-----------
+-----------
+[BOOLOP_VAR] + [AND] --> 36
+[BOOLOP_VAR] --> [BOOLLOG_VAR] 
+-----------
+-----------
+[BOOLEQ_VAR] + [EQUAL] --> 37
+[BOOLEQ_VAR] --> [EQUAL] 
+-----------
+-----------
+[BOOLEQ_VAR] + [NEQUAL] --> 38
+[BOOLEQ_VAR] --> [NEQUAL] 
+-----------
+-----------
+[BOOLLOG_VAR] + [AND] --> 39
+[BOOLLOG_VAR] --> [AND] 
+-----------
+-----------
+[BOOLLOG_VAR] + [OR] --> 40
+[BOOLLOG_VAR] --> [OR] 
+-----------
+-----------
+[RELEXPR_VAR] + [LPAREN] --> 41
+[RELEXPR_VAR] --> [ARITHEXPR_VAR] [RELEXPRP_VAR] 
+-----------
+-----------
+[RELEXPR_VAR] + [ID] --> 41
+[RELEXPR_VAR] --> [ARITHEXPR_VAR] [RELEXPRP_VAR] 
+-----------
+-----------
+[RELEXPR_VAR] + [NUM] --> 41
+[RELEXPR_VAR] --> [ARITHEXPR_VAR] [RELEXPRP_VAR] 
+-----------
+-----------
+[RELEXPR_VAR] + [TRUE] --> 42
+[RELEXPR_VAR] --> [TRUE] 
+-----------
+-----------
+[RELEXPR_VAR] + [FALSE] --> 43
+[RELEXPR_VAR] --> [FALSE] 
+-----------
+-----------
+[RELEXPRP_VAR] + [GT] --> 44
+[RELEXPRP_VAR] --> [RELOP_VAR] [ARITHEXPR_VAR] 
+-----------
+-----------
+[RELEXPRP_VAR] + [GE] --> 44
+[RELEXPRP_VAR] --> [RELOP_VAR] [ARITHEXPR_VAR] 
+-----------
+-----------
+[RELEXPRP_VAR] + [LE] --> 44
+[RELEXPRP_VAR] --> [RELOP_VAR] [ARITHEXPR_VAR] 
+-----------
+-----------
+[RELEXPRP_VAR] + [LT] --> 44
+[RELEXPRP_VAR] --> [RELOP_VAR] [ARITHEXPR_VAR] 
+-----------
+-----------
+[RELEXPRP_VAR] + [IF] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [OR] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [WHILE] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [LBRACE] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [TYPE: Optional[int]] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [TYPE: Optional[boolean]] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [TYPE: Optional[char]] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [PRINT] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [RBRACE] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [RPAREN] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [NEQUAL] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [SEMICOLON] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [FOR] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [EQUAL] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [ID] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [AND] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELEXPRP_VAR] + [EPSILON] --> 45
+[RELEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[RELOP_VAR] + [LT] --> 46
+[RELOP_VAR] --> [LT] 
+-----------
+-----------
+[RELOP_VAR] + [LE] --> 47
+[RELOP_VAR] --> [LE] 
+-----------
+-----------
+[RELOP_VAR] + [GT] --> 48
+[RELOP_VAR] --> [GT] 
+-----------
+-----------
+[RELOP_VAR] + [GE] --> 49
+[RELOP_VAR] --> [GE] 
+-----------
+-----------
+[ARITHEXPR_VAR] + [LPAREN] --> 50
+[ARITHEXPR_VAR] --> [TERM_VAR] [ARITHEXPRP_VAR] 
+-----------
+-----------
+[ARITHEXPR_VAR] + [ID] --> 50
+[ARITHEXPR_VAR] --> [TERM_VAR] [ARITHEXPRP_VAR] 
+-----------
+-----------
+[ARITHEXPR_VAR] + [NUM] --> 50
+[ARITHEXPR_VAR] --> [TERM_VAR] [ARITHEXPRP_VAR] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [PLUS] --> 51
+[ARITHEXPRP_VAR] --> [PLUS] [TERM_VAR] [ARITHEXPRP_VAR] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [MINUS] --> 52
+[ARITHEXPRP_VAR] --> [MINUS] [TERM_VAR] [ARITHEXPRP_VAR] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [IF] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [GT] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [OR] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [GE] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [WHILE] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [LBRACE] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [LE] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [TYPE: Optional[int]] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [TYPE: Optional[boolean]] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [TYPE: Optional[char]] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [PRINT] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [RPAREN] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [RBRACE] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [NEQUAL] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [SEMICOLON] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [FOR] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [LT] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [EQUAL] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [ID] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [AND] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[ARITHEXPRP_VAR] + [EPSILON] --> 53
+[ARITHEXPRP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERM_VAR] + [LPAREN] --> 54
+[TERM_VAR] --> [FACTOR_VAR] [TERMP_VAR] 
+-----------
+-----------
+[TERM_VAR] + [ID] --> 54
+[TERM_VAR] --> [FACTOR_VAR] [TERMP_VAR] 
+-----------
+-----------
+[TERM_VAR] + [NUM] --> 54
+[TERM_VAR] --> [FACTOR_VAR] [TERMP_VAR] 
+-----------
+-----------
+[TERMP_VAR] + [TIMES] --> 55
+[TERMP_VAR] --> [TIMES] [FACTOR_VAR] [TERMP_VAR] 
+-----------
+-----------
+[TERMP_VAR] + [DIVIDE] --> 56
+[TERMP_VAR] --> [DIVIDE] [FACTOR_VAR] [TERMP_VAR] 
+-----------
+-----------
+[TERMP_VAR] + [MOD] --> 57
+[TERMP_VAR] --> [MOD] [FACTOR_VAR] [TERMP_VAR] 
+-----------
+-----------
+[TERMP_VAR] + [GT] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [PLUS] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [OR] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [LBRACE] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [LE] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [TYPE: Optional[int]] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [TYPE: Optional[boolean]] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [TYPE: Optional[char]] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [PRINT] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [RBRACE] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [SEMICOLON] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [LT] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [EQUAL] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [EPSILON] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [IF] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [GE] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [WHILE] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [RPAREN] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [MINUS] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [NEQUAL] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [FOR] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [ID] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[TERMP_VAR] + [AND] --> 58
+[TERMP_VAR] --> [EPSILON] 
+-----------
+-----------
+[FACTOR_VAR] + [LPAREN] --> 59
+[FACTOR_VAR] --> [LPAREN] [ARITHEXPR_VAR] [RPAREN] 
+-----------
+-----------
+[FACTOR_VAR] + [ID] --> 60
+[FACTOR_VAR] --> [ID] 
+-----------
+-----------
+[FACTOR_VAR] + [NUM] --> 61
+[FACTOR_VAR] --> [NUM] 
+-----------
+-----------
+[PRINTEXPR_VAR] + [FALSE] --> 62
+[PRINTEXPR_VAR] --> [RELEXPR_VAR] [BOOLEXPRP_VAR] 
+-----------
+-----------
+[PRINTEXPR_VAR] + [TRUE] --> 62
+[PRINTEXPR_VAR] --> [RELEXPR_VAR] [BOOLEXPRP_VAR] 
+-----------
+-----------
+[PRINTEXPR_VAR] + [LPAREN] --> 62
+[PRINTEXPR_VAR] --> [RELEXPR_VAR] [BOOLEXPRP_VAR] 
+-----------
+-----------
+[PRINTEXPR_VAR] + [ID] --> 62
+[PRINTEXPR_VAR] --> [RELEXPR_VAR] [BOOLEXPRP_VAR] 
+-----------
+-----------
+[PRINTEXPR_VAR] + [NUM] --> 62
+[PRINTEXPR_VAR] --> [RELEXPR_VAR] [BOOLEXPRP_VAR] 
+-----------
+-----------
+[PRINTEXPR_VAR] + [STRINGLIT] --> 63
+[PRINTEXPR_VAR] --> [STRINGLIT] 
+-----------

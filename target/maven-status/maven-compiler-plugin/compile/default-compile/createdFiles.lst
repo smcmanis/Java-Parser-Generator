@@ -1,7 +1,0 @@
-LexicalAnalyser$Symbol.class
-NumberException.class
-ExpressionException.class
-Token.class
-LexicalAnalyser.class
-Token$TokenType.class
-Token$1.class

@@ -1,0 +1,5 @@
+<<expr>> ::=  <<term>> <<bool expr'>> 
+<<bool expr'>> ::= + <<term>> <<bool expr'>> | <<epsilon>>
+<<term>> ::= <<for>> <<term'>>
+<<term'>> ::= * <<for>> <<term'>> | <<epsilon>> 
+<<for>> ::= ( <<expr>> ) | <<ID>>
